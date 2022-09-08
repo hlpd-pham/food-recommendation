@@ -45,13 +45,13 @@ export class RestaurantController {
   }
 
   @Get(':id')
-  getRestaurant(id: string) {
+  getRestaurant(@Param('id') id: string) {
     return this.restaurantService.find(id);
   }
 
   @Put(':id')
-  updateRestaurant(id: string, @Body() updateDto: UpdateRestaurantDto) {
-    return this.restaurantService.update(id, updateDto);
+  updateRestaurant(@Body() updateDto: UpdateRestaurantDto) {
+    return this.restaurantService.update(updateDto.id, updateDto);
   }
 
   @Post()

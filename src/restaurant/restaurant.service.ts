@@ -1,9 +1,11 @@
 import { Injectable } from '@nestjs/common';
+import { NotFoundException } from '@nestjs/common/exceptions';
 import {
   CreateRestaurantDto,
   RestaurantDto,
   UpdateRestaurantDto,
 } from './dtos/restaurant.dto';
+import { restaurantData } from './restaurant.data';
 import {
   RestaurantMealType,
   RestaurantPrice,
@@ -13,7 +15,11 @@ import {
 
 @Injectable()
 export class RestaurantService {
-  constructor() {}
+  private data: RestaurantDto[];
+
+  constructor() {
+    this.data = restaurantData();
+  }
 
   findAll(
     name?: string,
@@ -23,13 +29,41 @@ export class RestaurantService {
     pageToken?: string,
     sortBy?: RestaurantSortBy,
     sortOrder?: RestaurantSortOrder,
-  ) {}
+  ) {
+    return this.data;
+  }
 
-  find(id: string) {}
+  find(id: string) {
+    let itemIdx = this.findItemIdx(id);
+    return this.data[itemIdx];
+  }
 
-  create(createdDto: CreateRestaurantDto) {}
+  create(createDto: CreateRestaurantDto) {
+    this.data.push(createDto);
+    return createDto as RestaurantDto;
+  }
 
-  update(id: string, updateDto: UpdateRestaurantDto) {}
+  update(id: string, updateDto: UpdateRestaurantDto) {
+    let itemIdx = this.findItemIdx(id);
+    for (let key in updateDto) {
+      let newValue = updateDto[key];
+      this.data[itemIdx][key] = newValue;
+    }
+    return this.data[itemIdx];
+  }
 
-  delete(id: string) {}
+  delete(id: string) {
+    let itemIdx = this.findItemIdx(id);
+    let toBeDeleted = this.data[itemIdx];
+    this.data.splice(itemIdx, 1);
+    return toBeDeleted;
+  }
+
+  private findItemIdx(id: string) {
+    let itemIdx = this.data.findIndex((x) => x.id === id);
+    if (itemIdx > -1) {
+      return itemIdx;
+    }
+    throw new NotFoundException(`Item with id ${id} not found.`);
+  }
 }
