@@ -13,8 +13,6 @@ import {
 
 @Injectable()
 export class RestaurantService {
-  private mockRestaurants: RestaurantDto[] = [];
-
   constructor() {}
 
   findAll(
