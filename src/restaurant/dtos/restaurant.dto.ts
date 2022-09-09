@@ -1,7 +1,5 @@
 import { OmitType, PartialType } from '@nestjs/mapped-types';
 import {
-  ArrayMaxSize,
-  ArrayMinSize,
   IsArray,
   IsEnum,
   IsNotEmpty,
@@ -13,6 +11,10 @@ import { RestaurantMealType, RestaurantPrice } from '../restaurant.enum';
 import { AddressDto } from './address.dto';
 import { OperationTimeDto } from './operation-time.dto';
 
+const enumValidationErrorMessage = (enumName, enumType: any): string => {
+  return `${enumName} must be one of ${Object.keys(enumType)}`;
+};
+
 export class RestaurantDto {
   @IsString()
   @IsNotEmpty()
@@ -22,11 +24,18 @@ export class RestaurantDto {
   @IsNotEmpty()
   name: string;
 
-  @IsEnum(RestaurantPrice)
+  @IsEnum(RestaurantPrice, {
+    message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
+  })
   @IsOptional()
   priceRange: RestaurantPrice;
 
-  @IsEnum(RestaurantMealType)
+  @IsEnum(RestaurantMealType, {
+    message: enumValidationErrorMessage(
+      'RestaurantMealType',
+      RestaurantMealType,
+    ),
+  })
   @IsOptional()
   mealType: RestaurantMealType;
 

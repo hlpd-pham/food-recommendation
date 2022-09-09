@@ -1,22 +1,22 @@
 export enum RestaurantPrice {
-  High,
-  Medium,
-  Low,
+  Low = 'Low',
+  Medium = 'Medium',
+  High = 'High',
 }
 
 export enum RestaurantMealType {
-  Breakfast,
-  Lunch,
-  Dinner,
+  Breakfast = 'Breakfast',
+  Lunch = 'Lunch',
+  Dinner = 'Dinner',
 }
 
 export enum RestaurantSortBy {
-  Name,
-  Cuisine,
-  PriceRange,
+  Name = 'Name',
+  Cuisine = 'Cuisine',
+  PriceRange = 'PriceRange',
 }
 
 export enum RestaurantSortOrder {
-  Ascending,
-  Descending,
+  Ascending = 'ASC',
+  Descending = 'DESC',
 }
