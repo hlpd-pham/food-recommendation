@@ -1,4 +1,5 @@
 import { OmitType, PartialType } from '@nestjs/mapped-types';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsEnum,
@@ -18,16 +19,19 @@ const enumValidationErrorMessage = (enumName, enumType: any): string => {
 export class RestaurantDto {
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   id: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty()
   name: string;
 
   @IsEnum(RestaurantPrice, {
     message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
   })
   @IsOptional()
+  @ApiProperty()
   priceRange: RestaurantPrice;
 
   @IsEnum(RestaurantMealType, {
@@ -37,23 +41,95 @@ export class RestaurantDto {
     ),
   })
   @IsOptional()
+  @ApiProperty()
   mealType: RestaurantMealType;
 
   @IsObject({ always: true })
   @IsOptional()
+  @ApiProperty({ type: AddressDto })
   address: AddressDto;
 
   @IsArray()
   @IsOptional()
+  @ApiProperty({ type: [OperationTimeDto] })
   operationTimes: OperationTimeDto[];
 }
 
 export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   'id',
-] as const) {}
+] as const) {
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  id: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  name: string;
+
+  @IsEnum(RestaurantPrice, {
+    message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
+  })
+  @IsOptional()
+  @ApiProperty({ enum: RestaurantPrice })
+  priceRange: RestaurantPrice;
+
+  @IsEnum(RestaurantMealType, {
+    message: enumValidationErrorMessage(
+      'RestaurantMealType',
+      RestaurantMealType,
+    ),
+  })
+  @IsOptional()
+  @ApiProperty({ enum: RestaurantMealType })
+  mealType: RestaurantMealType;
+
+  @IsObject({ always: true })
+  @IsOptional()
+  @ApiProperty({ type: AddressDto })
+  address: AddressDto;
+
+  @IsArray()
+  @IsOptional()
+  @ApiProperty({ type: [OperationTimeDto] })
+  operationTimes: OperationTimeDto[];
+}
 
 export class UpdateRestaurantDto extends PartialType(RestaurantDto) {
   @IsString()
-  @IsNotEmpty()
+  @ApiProperty()
   id: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  name: string;
+
+  @IsEnum(RestaurantPrice, {
+    message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
+  })
+  @IsOptional()
+  @ApiProperty({ enum: RestaurantPrice })
+  priceRange: RestaurantPrice;
+
+  @IsEnum(RestaurantMealType, {
+    message: enumValidationErrorMessage(
+      'RestaurantMealType',
+      RestaurantMealType,
+    ),
+  })
+  @IsOptional()
+  @ApiProperty({ enum: RestaurantMealType })
+  mealType: RestaurantMealType;
+
+  @IsObject({ always: true })
+  @IsOptional()
+  @ApiProperty()
+  address: AddressDto;
+
+  @IsArray()
+  @IsOptional()
+  @ApiProperty({ type: [OperationTimeDto] })
+  operationTimes: OperationTimeDto[];
 }

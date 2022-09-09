@@ -25,9 +25,9 @@ export class RestaurantController {
 
   @Get()
   getRestaurants(
-    name?: string,
-    cuisine?: string,
-    priceRange?: RestaurantPrice,
+    @Param('name') name?: string,
+    @Param('cuisine') cuisine?: string,
+    @Param('priceRange') priceRange?: RestaurantPrice,
     mealType?: RestaurantMealType,
     pageToken?: string,
     sortBy?: RestaurantSortBy,
