@@ -27,6 +27,11 @@ export class RestaurantDto {
   @ApiProperty()
   name: string;
 
+  @IsString()
+  @IsNotEmpty()
+  @ApiProperty()
+  cuisine: string;
+
   @IsEnum(RestaurantPrice, {
     message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
   })
@@ -68,6 +73,11 @@ export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   @ApiProperty()
   name: string;
 
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  cuisine: string;
+
   @IsEnum(RestaurantPrice, {
     message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
   })
@@ -105,6 +115,11 @@ export class UpdateRestaurantDto extends PartialType(RestaurantDto) {
   @IsOptional()
   @ApiProperty()
   name: string;
+
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  cuisine: string;
 
   @IsEnum(RestaurantPrice, {
     message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),

@@ -6,8 +6,8 @@ import { OperationTimeDto } from './dtos/operation-time.dto';
 
 export const restaurantData = (): RestaurantDto[] => {
   let res: RestaurantDto[] = [];
-  for (let i = 0; i < 10; i++) {
-    // res.push(RestaurantFactory.randomRestaurant());
+  for (let i = 0; i < 5; i++) {
+    res.push(RestaurantFactory.randomRestaurant());
   }
   return res;
 };
@@ -51,6 +51,7 @@ class RestaurantFactory {
     return {
       id: restaurantId,
       name: faker.company.name(),
+      cuisine: faker.commerce.productName(),
       priceRange: this.randomEnum(RestaurantPrice),
       mealType: this.randomEnum(RestaurantMealType),
       address: randomAddress(),

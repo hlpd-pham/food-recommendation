@@ -31,6 +31,7 @@ export class RestaurantService {
     sortBy?: RestaurantSortBy,
     sortOrder?: RestaurantSortOrder,
   ) {
+    let res = this.data.filter((x) => x.name === name);
     return this.data;
   }
 

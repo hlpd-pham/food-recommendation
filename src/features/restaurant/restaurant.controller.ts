@@ -6,7 +6,10 @@ import {
   Param,
   Post,
   Put,
+  Query,
 } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common/pipes';
+import { ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
 import {
   CreateRestaurantDto,
   UpdateRestaurantDto,
@@ -19,18 +22,24 @@ import {
 } from './restaurant.enum';
 import { RestaurantService } from './restaurant.service';
 
+@ApiTags('restaurant')
 @Controller('restaurant')
 export class RestaurantController {
   constructor(private restaurantService: RestaurantService) {}
 
   @Get()
   getRestaurants(
-    @Param('name') name?: string,
-    @Param('cuisine') cuisine?: string,
-    @Param('priceRange') priceRange?: RestaurantPrice,
+    @Query('name') name?: string,
+    @Query('cuisine') cuisine?: string,
+    @Query('priceRange')
+    priceRange?: RestaurantPrice,
+    @Query('mealType')
     mealType?: RestaurantMealType,
+    @Query('pageToken')
     pageToken?: string,
+    @Query('sortBy')
     sortBy?: RestaurantSortBy,
+    @Query('sortOrder')
     sortOrder?: RestaurantSortOrder,
   ) {
     return this.restaurantService.findAll(
