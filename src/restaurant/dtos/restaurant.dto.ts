@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { OmitType, PartialType } from '@nestjs/mapped-types';
 import {
   ArrayMaxSize,
   ArrayMinSize,
@@ -6,6 +6,7 @@ import {
   IsEnum,
   IsNotEmpty,
   IsObject,
+  IsOptional,
   IsString,
 } from 'class-validator';
 import { RestaurantMealType, RestaurantPrice } from '../restaurant.enum';
@@ -22,27 +23,28 @@ export class RestaurantDto {
   name: string;
 
   @IsEnum(RestaurantPrice)
-  @IsNotEmpty()
+  @IsOptional()
   priceRange: RestaurantPrice;
 
   @IsEnum(RestaurantMealType)
-  @IsNotEmpty()
+  @IsOptional()
   mealType: RestaurantMealType;
 
   @IsObject({ always: true })
-  @IsNotEmpty()
+  @IsOptional()
   address: AddressDto;
 
   @IsArray()
-  @IsNotEmpty()
-  @ArrayMinSize(7)
-  @ArrayMaxSize(7)
+  @IsOptional()
   operationTimes: OperationTimeDto[];
 }
 
-export class CreateRestaurantDto extends RestaurantDto {}
+export class CreateRestaurantDto extends OmitType(RestaurantDto, [
+  'id',
+] as const) {}
 
 export class UpdateRestaurantDto extends PartialType(RestaurantDto) {
   @IsString()
+  @IsNotEmpty()
   id: string;
 }

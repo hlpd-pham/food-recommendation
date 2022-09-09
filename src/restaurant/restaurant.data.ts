@@ -7,7 +7,7 @@ import { OperationTimeDto } from './dtos/operation-time.dto';
 export const restaurantData = (): RestaurantDto[] => {
   let res: RestaurantDto[] = [];
   for (let i = 0; i < 10; i++) {
-    res.push(RestaurantFactory.randomRestaurant());
+    // res.push(RestaurantFactory.randomRestaurant());
   }
   return res;
 };

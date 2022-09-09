@@ -49,7 +49,7 @@ export class RestaurantController {
     return this.restaurantService.find(id);
   }
 
-  @Put(':id')
+  @Put()
   updateRestaurant(@Body() updateDto: UpdateRestaurantDto) {
     return this.restaurantService.update(updateDto.id, updateDto);
   }

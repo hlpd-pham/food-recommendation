@@ -1,3 +1,4 @@
+import { faker } from '@faker-js/faker';
 import { Injectable } from '@nestjs/common';
 import { NotFoundException } from '@nestjs/common/exceptions';
 import {
@@ -39,8 +40,12 @@ export class RestaurantService {
   }
 
   create(createDto: CreateRestaurantDto) {
-    this.data.push(createDto);
-    return createDto as RestaurantDto;
+    let newRestaurant: RestaurantDto = {
+      id: faker.datatype.number().toString(),
+      ...createDto,
+    };
+    this.data.push(newRestaurant);
+    return newRestaurant;
   }
 
   update(id: string, updateDto: UpdateRestaurantDto) {
