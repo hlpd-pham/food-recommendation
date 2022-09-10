@@ -8,7 +8,7 @@ import {
   IsOptional,
   IsString,
 } from 'class-validator';
-import { RestaurantMealType, RestaurantPrice } from '../restaurant.enum';
+import { RestaurantMealType, RestaurantPriceRange } from '../restaurant.enum';
 import { AddressDto } from './address.dto';
 import { OperationTimeDto } from './operation-time.dto';
 
@@ -32,12 +32,15 @@ export class RestaurantDto {
   @ApiProperty()
   cuisine: string;
 
-  @IsEnum(RestaurantPrice, {
-    message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
+  @IsEnum(RestaurantPriceRange, {
+    message: enumValidationErrorMessage(
+      'RestaurantPrice',
+      RestaurantPriceRange,
+    ),
   })
   @IsOptional()
   @ApiProperty()
-  priceRange: RestaurantPrice;
+  priceRange: RestaurantPriceRange;
 
   @IsEnum(RestaurantMealType, {
     message: enumValidationErrorMessage(
@@ -78,12 +81,15 @@ export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   @ApiProperty()
   cuisine: string;
 
-  @IsEnum(RestaurantPrice, {
-    message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
+  @IsEnum(RestaurantPriceRange, {
+    message: enumValidationErrorMessage(
+      'RestaurantPrice',
+      RestaurantPriceRange,
+    ),
   })
   @IsOptional()
-  @ApiProperty({ enum: RestaurantPrice })
-  priceRange: RestaurantPrice;
+  @ApiProperty({ enum: RestaurantPriceRange })
+  priceRange: RestaurantPriceRange;
 
   @IsEnum(RestaurantMealType, {
     message: enumValidationErrorMessage(
@@ -121,12 +127,15 @@ export class UpdateRestaurantDto extends PartialType(RestaurantDto) {
   @ApiProperty()
   cuisine: string;
 
-  @IsEnum(RestaurantPrice, {
-    message: enumValidationErrorMessage('RestaurantPrice', RestaurantPrice),
+  @IsEnum(RestaurantPriceRange, {
+    message: enumValidationErrorMessage(
+      'RestaurantPrice',
+      RestaurantPriceRange,
+    ),
   })
   @IsOptional()
-  @ApiProperty({ enum: RestaurantPrice })
-  priceRange: RestaurantPrice;
+  @ApiProperty({ enum: RestaurantPriceRange })
+  priceRange: RestaurantPriceRange;
 
   @IsEnum(RestaurantMealType, {
     message: enumValidationErrorMessage(

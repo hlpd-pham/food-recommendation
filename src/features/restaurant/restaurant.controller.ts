@@ -8,15 +8,14 @@ import {
   Put,
   Query,
 } from '@nestjs/common';
-import { ValidationPipe } from '@nestjs/common/pipes';
-import { ApiPropertyOptional, ApiTags } from '@nestjs/swagger';
+import { ApiTags } from '@nestjs/swagger';
 import {
   CreateRestaurantDto,
   UpdateRestaurantDto,
 } from './dtos/restaurant.dto';
 import {
   RestaurantMealType,
-  RestaurantPrice,
+  RestaurantPriceRange,
   RestaurantSortBy,
   RestaurantSortOrder,
 } from './restaurant.enum';
@@ -32,7 +31,7 @@ export class RestaurantController {
     @Query('name') name?: string,
     @Query('cuisine') cuisine?: string,
     @Query('priceRange')
-    priceRange?: RestaurantPrice,
+    priceRange?: RestaurantPriceRange,
     @Query('mealType')
     mealType?: RestaurantMealType,
     @Query('pageToken')

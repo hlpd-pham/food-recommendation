@@ -1,6 +1,6 @@
 import { RestaurantDto } from './dtos/restaurant.dto';
 import { faker } from '@faker-js/faker';
-import { RestaurantMealType, RestaurantPrice } from './restaurant.enum';
+import { RestaurantMealType, RestaurantPriceRange } from './restaurant.enum';
 import { AddressDto } from './dtos/address.dto';
 import { OperationTimeDto } from './dtos/operation-time.dto';
 
@@ -52,7 +52,7 @@ class RestaurantFactory {
       id: restaurantId,
       name: faker.company.name(),
       cuisine: faker.commerce.productName(),
-      priceRange: this.randomEnum(RestaurantPrice),
+      priceRange: this.randomEnum(RestaurantPriceRange),
       mealType: this.randomEnum(RestaurantMealType),
       address: randomAddress(),
       operationTimes: restaurantSchedule(),

@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
 import { RestaurantModule } from './features/restaurant/restaurant.module';
 
 @Module({
-  imports: [RestaurantModule],
+  imports: [RestaurantModule, ConfigModule.forRoot()],
   controllers: [],
   providers: [],
 })

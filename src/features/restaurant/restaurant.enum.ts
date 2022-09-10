@@ -1,4 +1,4 @@
-export enum RestaurantPrice {
+export enum RestaurantPriceRange {
   Low = 'Low',
   Medium = 'Medium',
   High = 'High',
