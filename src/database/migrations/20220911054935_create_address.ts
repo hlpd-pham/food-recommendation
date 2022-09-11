@@ -23,13 +23,13 @@ export async function up(knex: Knex) {
   });
 
   // add foreign key from restaurant to address table
-  return knex.schema.hasTable(restaurantTable).then(async (tableExists) => {
+  await knex.schema.hasTable(restaurantTable).then(async (tableExists) => {
     if (tableExists) {
-      return knex.schema
+      await knex.schema
         .hasColumn(restaurantTable, 'addressId')
         .then(async (colExists) => {
           if (!colExists) {
-            return knex.schema.alterTable(restaurantTable, (t) => {
+            await knex.schema.alterTable(restaurantTable, (t) => {
               t.integer('addressId')
                 .unsigned()
                 .references('id')
@@ -46,7 +46,7 @@ export async function down(knex: Knex) {
     .hasColumn(restaurantTable, 'address_id')
     .then(async (colExists) => {
       if (colExists) {
-        return knex.schema.table(restaurantTable, (t) => {
+        await knex.schema.table(restaurantTable, (t) => {
           t.dropForeign(['addressId']);
           t.dropColumn('addressId');
         });

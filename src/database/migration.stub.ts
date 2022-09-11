@@ -4,9 +4,9 @@ import { Knex } from 'knex';
 const tableName = '';
 
 export async function up(knex: Knex) {
-  knex.schema.hasTable(tableName).then((exists) => {
+  await knex.schema.hasTable(tableName).then(async (exists) => {
     if (!exists) {
-      return knex.schema.createTable(tableName, (t) => {
+      await knex.schema.createTable(tableName, (t) => {
         // TODO: fill in table schema
         t.increments();
         t.timestamps(true, true);
@@ -17,5 +17,5 @@ export async function up(knex: Knex) {
 
 export async function down(knex: Knex) {
   // TODO: fill in roll back steps
-  return knex.schema.dropTableIfExists(tableName);
+  await knex.schema.dropTableIfExists(tableName);
 }

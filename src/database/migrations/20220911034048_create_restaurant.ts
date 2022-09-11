@@ -7,9 +7,9 @@ import { Knex } from 'knex';
 const tableName = 'restaurant';
 
 export async function up(knex: Knex) {
-  await knex.schema.hasTable(tableName).then((exists) => {
+  await knex.schema.hasTable(tableName).then(async (exists) => {
     if (!exists) {
-      return knex.schema.createTable(tableName, (t) => {
+      await knex.schema.createTable(tableName, (t) => {
         t.increments();
         t.timestamps(true, true);
         t.string('name').notNullable();
@@ -22,5 +22,5 @@ export async function up(knex: Knex) {
 }
 
 export async function down(knex: Knex) {
-  return knex.schema.dropTable(tableName);
+  await knex.schema.dropTable(tableName);
 }
