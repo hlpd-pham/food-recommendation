@@ -27,29 +27,8 @@ export class RestaurantController {
   constructor(private restaurantService: RestaurantService) {}
 
   @Get()
-  getRestaurants(
-    @Query('name') name?: string,
-    @Query('cuisine') cuisine?: string,
-    @Query('priceRange')
-    priceRange?: RestaurantPriceRange,
-    @Query('mealType')
-    mealType?: RestaurantMealType,
-    @Query('pageToken')
-    pageToken?: string,
-    @Query('sortBy')
-    sortBy?: RestaurantSortBy,
-    @Query('sortOrder')
-    sortOrder?: RestaurantSortOrder,
-  ) {
-    return this.restaurantService.findAll(
-      name,
-      cuisine,
-      priceRange,
-      mealType,
-      pageToken,
-      sortBy,
-      sortOrder,
-    );
+  getRestaurants() {
+    return this.restaurantService.findAll();
   }
 
   @Get(':id')
