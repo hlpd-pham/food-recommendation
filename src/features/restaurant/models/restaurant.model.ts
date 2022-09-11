@@ -16,7 +16,6 @@ export class Restaurant extends BaseModel {
 
   static get relationMappings() {
     const Address = require('./address.model');
-    const OperationTime = require('./operation-time.model');
 
     return {
       address: {
@@ -25,14 +24,6 @@ export class Restaurant extends BaseModel {
         join: {
           from: 'restaurant.addressId',
           to: 'address.id',
-        },
-      },
-      operationTimes: {
-        relation: Model.HasManyRelation,
-        modelClass: OperationTime,
-        join: {
-          from: 'restaurant.id',
-          to: 'operation_time.restaurantId',
         },
       },
     };
