@@ -12,13 +12,13 @@ module.exports = {
     },
     migrations: {
       directory: './migrations',
-      stub: './migration.stub.ts',
+      stub: './migration.stub',
       extension: 'ts',
       tableName: 'knex_migrations',
     },
     seeds: {
       directory: './seeds/local',
-      stub: './seed.stub.ts',
+      stub: './seed.stub',
     },
     timezone: 'UTC',
     ...knexSnakeCaseMappers(),

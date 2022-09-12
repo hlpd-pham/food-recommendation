@@ -9,7 +9,7 @@
     "prebuild": "rimraf dist",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "knex": "node_modules/.bin/env-cmd -f .env node_modules/knex/bin/cli.js --knexfile src/database/knexfile.ts",
+    "knex": "node_modules/.bin/env-cmd -f .env node_modules/knex/bin/cli.js --timestamp-filename-prefix --knexfile src/database/knexfile.ts",
     "start": "nest start",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
