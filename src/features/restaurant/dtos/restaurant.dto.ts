@@ -1,4 +1,4 @@
-import { OmitType, PartialType } from '@nestjs/mapped-types';
+import { OmitType } from '@nestjs/mapped-types';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
@@ -58,10 +58,10 @@ export class RestaurantDto {
   @ApiProperty({ type: AddressDto })
   address: AddressDto;
 
-  @IsArray()
-  @IsOptional()
-  @ApiProperty({ type: [OperationTimeDto] })
-  operationTimes: OperationTimeDto[];
+  // @IsArray()
+  // @IsOptional()
+  // @ApiProperty({ type: [OperationTimeDto] })
+  // operationTimes: OperationTimeDto[];
 }
 
 export class CreateRestaurantDto extends OmitType(RestaurantDto, [
@@ -102,10 +102,15 @@ export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   @ApiProperty({ type: AddressDto })
   address: AddressDto;
 
-  @IsArray()
-  @IsOptional()
-  @ApiProperty({ type: [OperationTimeDto] })
-  operationTimes: OperationTimeDto[];
+  // @IsArray()
+  // @IsOptional()
+  // @ApiProperty({ type: [OperationTimeDto] })
+  // operationTimes: OperationTimeDto[];
 }
 
-export class UpdateRestaurantDto extends CreateRestaurantDto {}
+export class UpdateRestaurantDto extends CreateRestaurantDto {
+  @IsString()
+  @IsOptional()
+  @ApiProperty()
+  name: string;
+}

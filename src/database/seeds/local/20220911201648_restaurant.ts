@@ -19,6 +19,7 @@ export async function seed(knex: Knex): Promise<any> {
     let entry = {
       name: faker.company.name(),
       phoneNumber: faker.phone.number(),
+      cuisine: faker.word.noun(),
       priceRange: priceRanges[Math.floor(Math.random() * priceRanges.length)],
       mealType: mealTypes[Math.floor(Math.random() * mealTypes.length)],
     };

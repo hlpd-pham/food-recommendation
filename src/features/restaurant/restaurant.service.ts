@@ -22,7 +22,7 @@ export class RestaurantService {
     return this.restaurantModel.query().withGraphFetched('address');
   }
 
-  async find(id: number) {
+  async findOne(id: number): Promise<Restaurant> {
     const res = await this.restaurantModel
       .query()
       .findById(id)
@@ -35,7 +35,18 @@ export class RestaurantService {
 
   async create(createDto: CreateRestaurantDto) {}
 
-  async update(id: number, updateDto: UpdateRestaurantDto) {}
+  async update(id: number, updateDto: UpdateRestaurantDto) {
+    const restaurant = await this.findOne(id);
+    const { address, ...restaurantPayload } = updateDto;
+    if (address) {
+      await restaurant.$relatedQuery('address').patch(address);
+    }
+    const updatedRestaurant = await restaurant
+      .$query()
+      .updateAndFetch(restaurantPayload)
+      .withGraphFetched('address');
+    return updatedRestaurant;
+  }
 
   async delete(id: string) {}
 }

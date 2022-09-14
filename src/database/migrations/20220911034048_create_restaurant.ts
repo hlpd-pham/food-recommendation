@@ -14,6 +14,7 @@ export async function up(knex: Knex) {
         t.timestamps(true, true);
         t.string('name').notNullable();
         t.string('phoneNumber').nullable();
+        t.string('cuisine').nullable();
         t.enum('priceRange', Object.values(RestaurantPriceRange)).nullable();
         t.enum('mealType', Object.values(RestaurantMealType)).nullable();
       });

@@ -21,37 +21,8 @@ export async function up(knex: Knex) {
       });
     }
   });
-
-  // // add foreign key from restaurant to address table
-  // await knex.schema.hasTable(restaurantTable).then(async (tableExists) => {
-  //   if (tableExists) {
-  //     await knex.schema
-  //       .hasColumn(restaurantTable, 'addressId')
-  //       .then(async (colExists) => {
-  //         if (!colExists) {
-  //           await knex.schema.alterTable(restaurantTable, (t) => {
-  //             t.integer('addressId')
-  //               .unsigned()
-  //               .references('id')
-  //               .inTable(addressTable);
-  //           });
-  //         }
-  //       });
-  //   }
-  // });
 }
 
 export async function down(knex: Knex) {
-  // await knex.schema
-  //   .hasColumn(restaurantTable, 'address_id')
-  //   .then(async (colExists) => {
-  //     if (colExists) {
-  //       await knex.schema.table(restaurantTable, (t) => {
-  //         t.dropForeign(['addressId']);
-  //         t.dropColumn('addressId');
-  //       });
-  //     }
-  //   });
-
   await knex.schema.dropTableIfExists(addressTable);
 }

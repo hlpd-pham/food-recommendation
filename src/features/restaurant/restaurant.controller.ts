@@ -14,6 +14,7 @@ import {
   CreateRestaurantDto,
   UpdateRestaurantDto,
 } from './dtos/restaurant.dto';
+import { Restaurant } from './models/restaurant.model';
 import {
   RestaurantMealType,
   RestaurantPriceRange,
@@ -28,30 +29,32 @@ export class RestaurantController {
   constructor(private restaurantService: RestaurantService) {}
 
   @Get()
-  getRestaurants() {
+  async getRestaurants(): Promise<Restaurant[]> {
     return this.restaurantService.findAll();
   }
 
   @Get(':id')
-  getRestaurant(@Param('id', ParseIntPipe) id: number) {
-    return this.restaurantService.find(id);
+  async getRestaurant(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<Restaurant> {
+    return this.restaurantService.findOne(id);
   }
 
-  @Put()
-  updateRestaurant(
+  @Put(':id')
+  async updateRestaurant(
     @Param('id', ParseIntPipe) id: number,
     @Body() updateDto: UpdateRestaurantDto,
-  ) {
+  ): Promise<Restaurant> {
     return this.restaurantService.update(id, updateDto);
   }
 
   @Post()
-  createRestaurant(@Body() createDto: CreateRestaurantDto) {
+  async createRestaurant(@Body() createDto: CreateRestaurantDto) {
     return this.restaurantService.create(createDto);
   }
 
   @Delete(':id')
-  deleteRestaurant(@Param('id') id: string) {
+  async deleteRestaurant(@Param('id') id: string) {
     return this.restaurantService.delete(id);
   }
 }
