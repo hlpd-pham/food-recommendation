@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import {
   CreateRestaurantDto,
   RestaurantDto,
   UpdateRestaurantDto,
 } from './dtos/restaurant.dto';
+import { Restaurant } from './models/restaurant.model';
 import {
   RestaurantMealType,
   RestaurantPriceRange,
@@ -13,25 +14,21 @@ import {
 
 @Injectable()
 export class RestaurantService {
-  constructor() {}
-
-  async findAll(
-    name?: string,
-    cuisine?: string,
-    priceRange?: RestaurantPriceRange,
-    mealType?: RestaurantMealType,
-    pageToken?: string,
-    sortBy?: RestaurantSortBy,
-    sortOrder?: RestaurantSortOrder,
+  constructor(
+    @Inject(Restaurant) private readonly restaurantModel: typeof Restaurant,
   ) {}
 
-  find(id: string) {}
+  async findAll() {
+    return this.restaurantModel.query();
+  }
 
-  create(createDto: CreateRestaurantDto) {}
+  async find(id: string) {}
 
-  update(id: string, updateDto: UpdateRestaurantDto) {}
+  async create(createDto: CreateRestaurantDto) {}
 
-  delete(id: string) {}
+  async update(id: string, updateDto: UpdateRestaurantDto) {}
+
+  async delete(id: string) {}
 
   private findItemIdx(id: string) {}
 }

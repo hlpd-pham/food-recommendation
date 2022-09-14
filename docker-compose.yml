@@ -7,7 +7,7 @@ services:
     ports:
       - '5432:5432'
     env_file:
-      - docker.env
+      - .env
     volumes:
       - food_rec_data:/var/lib/postgresql/data/
 

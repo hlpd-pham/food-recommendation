@@ -4,7 +4,14 @@ import { RestaurantModule } from './features/restaurant/restaurant.module';
 import { DatabaseModule } from './database/database.module';
 
 @Module({
-  imports: [RestaurantModule, ConfigModule.forRoot(), DatabaseModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: '.env',
+      isGlobal: true,
+    }),
+    RestaurantModule,
+    DatabaseModule,
+  ],
   controllers: [],
   providers: [],
 })

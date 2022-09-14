@@ -1,11 +1,16 @@
 import { Module } from '@nestjs/common';
-import * as knexfile from './knexfile';
 import { ObjectionModule } from '@willsoto/nestjs-objection';
+import { DbConfigModule } from './db-config/db-config.module';
+import { DbConfigService } from './db-config/db-config.service';
 
 @Module({
   imports: [
-    ObjectionModule.register({
-      config: knexfile[process.env.NODE_ENV || 'development'],
+    ObjectionModule.registerAsync({
+      imports: [DbConfigModule],
+      inject: [DbConfigService],
+      useFactory: async (dbConfigService: DbConfigService) => ({
+        config: dbConfigService.getDbConfigs(),
+      }),
     }),
   ],
 })
