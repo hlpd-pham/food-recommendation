@@ -3,6 +3,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import {
   IsArray,
   IsEnum,
+  IsInt,
   IsNotEmpty,
   IsObject,
   IsOptional,
@@ -17,10 +18,10 @@ const enumValidationErrorMessage = (enumName, enumType: any): string => {
 };
 
 export class RestaurantDto {
-  @IsString()
+  @IsInt()
   @IsNotEmpty()
   @ApiProperty()
-  id: string;
+  id: number;
 
   @IsString()
   @IsNotEmpty()
@@ -69,11 +70,6 @@ export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   @IsString()
   @IsNotEmpty()
   @ApiProperty()
-  id: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty()
   name: string;
 
   @IsString()
@@ -112,48 +108,4 @@ export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   operationTimes: OperationTimeDto[];
 }
 
-export class UpdateRestaurantDto extends PartialType(RestaurantDto) {
-  @IsString()
-  @ApiProperty()
-  id: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty()
-  name: string;
-
-  @IsString()
-  @IsOptional()
-  @ApiProperty()
-  cuisine: string;
-
-  @IsEnum(RestaurantPriceRange, {
-    message: enumValidationErrorMessage(
-      'RestaurantPrice',
-      RestaurantPriceRange,
-    ),
-  })
-  @IsOptional()
-  @ApiProperty({ enum: RestaurantPriceRange })
-  priceRange: RestaurantPriceRange;
-
-  @IsEnum(RestaurantMealType, {
-    message: enumValidationErrorMessage(
-      'RestaurantMealType',
-      RestaurantMealType,
-    ),
-  })
-  @IsOptional()
-  @ApiProperty({ enum: RestaurantMealType })
-  mealType: RestaurantMealType;
-
-  @IsObject({ always: true })
-  @IsOptional()
-  @ApiProperty()
-  address: AddressDto;
-
-  @IsArray()
-  @IsOptional()
-  @ApiProperty({ type: [OperationTimeDto] })
-  operationTimes: OperationTimeDto[];
-}
+export class UpdateRestaurantDto extends CreateRestaurantDto {}

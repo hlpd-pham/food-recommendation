@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Query,
@@ -32,13 +33,16 @@ export class RestaurantController {
   }
 
   @Get(':id')
-  getRestaurant(@Param('id') id: string) {
+  getRestaurant(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantService.find(id);
   }
 
   @Put()
-  updateRestaurant(@Body() updateDto: UpdateRestaurantDto) {
-    return this.restaurantService.update(updateDto.id, updateDto);
+  updateRestaurant(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateDto: UpdateRestaurantDto,
+  ) {
+    return this.restaurantService.update(id, updateDto);
   }
 
   @Post()
