@@ -19,7 +19,7 @@ export class RestaurantService {
   ) {}
 
   async findAll() {
-    return this.restaurantModel.query();
+    return this.restaurantModel.query().withGraphFetched('address');
   }
 
   async find(id: string) {}

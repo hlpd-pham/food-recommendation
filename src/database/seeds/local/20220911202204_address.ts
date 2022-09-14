@@ -37,12 +37,6 @@ export async function seed(knex: Knex): Promise<any> {
       const rId = restaurantIds[i].id;
 
       queries.push(
-        knex(restaurantTable)
-          .where('id', rId)
-          .update({ addressId: aId })
-          .transacting(trx),
-      );
-      queries.push(
         knex(addressTable)
           .where('id', aId)
           .update({ restaurantId: rId })
