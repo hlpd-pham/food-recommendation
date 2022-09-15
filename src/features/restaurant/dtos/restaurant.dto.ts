@@ -10,7 +10,7 @@ import {
   IsString,
 } from 'class-validator';
 import { RestaurantMealType, RestaurantPriceRange } from '../restaurant.enum';
-import { AddressDto } from './address.dto';
+import { AddressDto, CreateAddressDto } from './address.dto';
 import { OperationTimeDto } from './operation-time.dto';
 
 const enumValidationErrorMessage = (enumName, enumType: any): string => {
@@ -66,6 +66,7 @@ export class RestaurantDto {
 
 export class CreateRestaurantDto extends OmitType(RestaurantDto, [
   'id',
+  'address',
 ] as const) {
   @IsString()
   @IsNotEmpty()
@@ -99,8 +100,8 @@ export class CreateRestaurantDto extends OmitType(RestaurantDto, [
 
   @IsObject({ always: true })
   @IsOptional()
-  @ApiProperty({ type: AddressDto })
-  address: AddressDto;
+  @ApiProperty({ type: CreateAddressDto })
+  address: CreateAddressDto;
 
   // @IsArray()
   // @IsOptional()

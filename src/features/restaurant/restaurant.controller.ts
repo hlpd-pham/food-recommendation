@@ -54,7 +54,7 @@ export class RestaurantController {
   }
 
   @Delete(':id')
-  async deleteRestaurant(@Param('id') id: string) {
+  async deleteRestaurant(@Param('id', ParseIntPipe) id: number) {
     return this.restaurantService.delete(id);
   }
 }

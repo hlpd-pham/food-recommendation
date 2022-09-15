@@ -12,6 +12,9 @@ export class Restaurant extends BaseModel {
   mealType?: RestaurantMealType;
   phoneNumber?: string;
 
+  // Relations
+  address?: Address;
+
   static get relationMappings() {
     return {
       address: {
